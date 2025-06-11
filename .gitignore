@@ -1,0 +1,17 @@
+﻿# C# / .NET Build-Artefakte
+[Bb]in/
+[Oo]bj/
+
+# IDE- und User-spezifische Dateien
+.vs/
+.idea/
+*.suo
+*.user
+*.DotSettings.user
+
+# Ignoriere die Solution-Datei, da wir nur das Projekt versionieren
+*.sln
+
+# Betriebssystem-Dateien
+.DS_Store
+Thumbs.db
