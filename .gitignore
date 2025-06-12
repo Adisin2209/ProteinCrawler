@@ -18,7 +18,8 @@ Thumbs.db
 
 # DEV Only Zeugs
 _hide/
-[Pp]roduct[Ss]erver.cs
+productserver.cs
+SroductServer.cs
 devstart.bat
 products.json
 bfg.jar
