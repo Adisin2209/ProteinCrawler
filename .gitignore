@@ -19,3 +19,4 @@ Thumbs.db
 # DEV Only Zeugs
 _hide/
 productserver.cs
+devstart.bat
