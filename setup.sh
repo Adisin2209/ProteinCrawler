@@ -109,5 +109,5 @@ echo
 echo "================================================================="
 echo "Alle Voraussetzungen erfüllt. Das C#-Programm kann jetzt gestartet werden."
 echo "Bitte führe nun das Programm aus (ggf. in einem neuen Terminal ohne sudo):"
-echo "dotnet run"
+echo "dotnet run --verbosity quiet"
 echo "================================================================="

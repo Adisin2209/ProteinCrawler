@@ -1,0 +1,149 @@
+[
+  {
+    "Name": "Thunfisch Naturale - ohne \u00D6l",
+    "Price": "\u20AC 1,99",
+    "Marke": "Saupiquet",
+    "Laden": "Kaufland",
+    "Kategorie": "Thunfisch"
+  },
+  {
+    "Name": "Thunfischfilets",
+    "Price": "\u20AC 1,11",
+    "Marke": "Nixe",
+    "Laden": "Lidl",
+    "Kategorie": "Thunfisch"
+  },
+  {
+    "Name": "Thunfischfilets",
+    "Price": "\u20AC 4,99",
+    "Marke": "Nixe",
+    "Laden": "Lidl",
+    "Kategorie": "Thunfisch"
+  },
+  {
+    "Name": "Speisequark",
+    "Price": "\u20AC 0,89",
+    "Marke": "Frija",
+    "Laden": "Netto",
+    "Kategorie": "Speisequark"
+  },
+  {
+    "Name": "Speisequark",
+    "Price": "\u20AC 0,79",
+    "Marke": "Frija",
+    "Laden": "Netto",
+    "Kategorie": "Speisequark"
+  },
+  {
+    "Name": "Speisequark",
+    "Price": "\u20AC 1,29",
+    "Marke": "Frija",
+    "Laden": "Netto",
+    "Kategorie": "Speisequark"
+  },
+  {
+    "Name": "High Protein Crispy Balls",
+    "Price": "\u20AC 2,29",
+    "Marke": "Ehrmann",
+    "Laden": "REWE",
+    "Kategorie": "Protein"
+  },
+  {
+    "Name": "High Protein Joghurt Kirsche Aronia",
+    "Price": "\u20AC 0,99",
+    "Marke": "Ehrmann",
+    "Laden": "REWE",
+    "Kategorie": "Protein"
+  },
+  {
+    "Name": "High Protein Pudding Schoko",
+    "Price": "\u20AC 1,99",
+    "Marke": "Dr. Oetker",
+    "Laden": "Kaufland",
+    "Kategorie": "Protein"
+  },
+  {
+    "Name": "High Protein Pudding",
+    "Price": "\u20AC 0,89",
+    "Marke": "Ehrmann",
+    "Laden": "Lidl",
+    "Kategorie": "Protein"
+  },
+  {
+    "Name": "High Protein Mousse Schoko",
+    "Price": "\u20AC 1,29",
+    "Marke": "Layenberger",
+    "Laden": "Lidl",
+    "Kategorie": "Protein"
+  },
+  {
+    "Name": "High Protein Sojadrink",
+    "Price": "\u20AC 1,15",
+    "Marke": "Vemondo",
+    "Laden": "Lidl",
+    "Kategorie": "Protein"
+  },
+  {
+    "Name": "Protein-Riegel",
+    "Price": "\u20AC 0,95",
+    "Marke": "Aldi Sports",
+    "Laden": "ALDI NORD",
+    "Kategorie": "Protein"
+  },
+  {
+    "Name": "High Protein Vanilla Pudding",
+    "Price": "\u20AC 0,99",
+    "Marke": "Ehrmann",
+    "Laden": "ALDI NORD",
+    "Kategorie": "Protein"
+  },
+  {
+    "Name": "High Protein Eis",
+    "Price": "\u20AC 2,99",
+    "Marke": "Rios",
+    "Laden": "PENNY",
+    "Kategorie": "Protein"
+  },
+  {
+    "Name": "High Protein Coffee Drink",
+    "Price": "\u20AC 0,99",
+    "Marke": "Dr. Oetker",
+    "Laden": "Netto Marken-Discount",
+    "Kategorie": "Protein"
+  },
+  {
+    "Name": "High Protein-Pudding",
+    "Price": "\u20AC 1,99",
+    "Marke": "Dr. Oetker",
+    "Laden": "Netto Marken-Discount",
+    "Kategorie": "Protein"
+  },
+  {
+    "Name": "Rinderhackfleisch",
+    "Price": "\u20AC 4,29",
+    "Marke": "K-Purland",
+    "Laden": "Kaufland",
+    "Kategorie": "Rinderhack"
+  },
+  {
+    "Name": "Rinderhackfleisch",
+    "Price": "\u20AC 9,49",
+    "Marke": "Metzgerfrisch",
+    "Laden": "Lidl",
+    "Kategorie": "Rinderhack"
+  },
+  {
+    "Name": "Rinderhackfleisch",
+    "Price": "\u20AC 4,99",
+    "Marke": "Meine Metzgerei",
+    "Laden": "ALDI NORD",
+    "Kategorie": "Rinderhack"
+  },
+  {
+    "Name": "Rinderhackfleisch",
+    "Price": "\u20AC 5,55",
+    "Marke": "Meine Fleischerei",
+    "Laden": "Netto",
+    "Kategorie": "Rinderhack"
+  }
+]

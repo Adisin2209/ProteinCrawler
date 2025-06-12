@@ -15,3 +15,7 @@
 # Betriebssystem-Dateien
 .DS_Store
 Thumbs.db
+
+# DEV Only Zeugs
+_hide/
+productserver.cs
