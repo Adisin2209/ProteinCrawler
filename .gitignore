@@ -18,5 +18,8 @@ Thumbs.db
 
 # DEV Only Zeugs
 _hide/
-productserver.cs
+[Pp]roduct[Ss]erver.cs
 devstart.bat
+products.json
+bfg.jar
+ChromeProfile/
