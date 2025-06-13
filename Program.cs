@@ -82,7 +82,7 @@ namespace SimpleWebScraper
                         System.Threading.Thread.Sleep(2000);
 
                         var productHTMLElements = driver.FindElements(By.CssSelector("li.offer-list-item"));
-                        Console.WriteLine($"Gefunden: {productHTMLElements.Count} Produkte...");
+                        Console.WriteLine("Gefunden: "+productHTMLElements.Count+ " Produkte...\n");
                         foreach (var productHTMLElement in productHTMLElements)
                         {
                             string name = "N/A", price = "N/A", laden = "N/A", marke = "N/A";

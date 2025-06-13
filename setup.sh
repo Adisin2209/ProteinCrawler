@@ -1,5 +1,6 @@
 #!/bin/bash
 
+CHROMEPROFILE_DIR="./ChromeProfile"
 # Farben für schöne Ausgabe
 GREEN=$(tput setaf 2)
 YELLOW=$(tput setaf 3)
@@ -76,4 +77,19 @@ fi
 echo
 echo "${YELLOW}Abhängigkeiten vollständig. Starte nun dotnet build + run...${NC}"
 dotnet build
+if [ ! -d "$CHROMEPROFILE_DIR" ] || [ -z "$(ls -A "$CHROMEPROFILE_DIR")" ]; then
+    echo
+    echo "${YELLOW}==== WICHTIGER HINWEIS VOR DEM ERSTEN START ====${NC}"
+    echo
+    echo "${RED}Beim ersten Start wird Chrome geöffnet.${NC}"
+    echo "${RED}Bitte mache folgendes im Chrome-Fenster:${NC}"
+    echo "${YELLOW}- Lehne das Privatsphäre/Cookie-Banner ab (Button suchen und klicken)${NC}"
+    echo "${YELLOW}- Klicke oben rechts auf das Standort-Symbol und wähle deine Region aus${NC}"
+    echo "${YELLOW}- Schließe dann Chrome${NC}"
+    echo
+    echo "${GREEN}Erst danach kannst du das Programm erneut starten, ab dann läuft alles automatisch im 'Headless'-Modus!${NC}"
+    echo
+    read -p "Drücke [ENTER], um Chrome zu starten ..."
+    echo
+fi
 dotnet run
