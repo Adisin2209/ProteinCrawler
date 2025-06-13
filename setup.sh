@@ -92,6 +92,7 @@ dotnet build
 # Hinweis für den ersten Start (bleibt gleich)
 CHROMEPROFILE_DIR="./ChromeProfile"
 if [ ! -d "$CHROMEPROFILE_DIR" ] || [ -z "$(ls -A "$CHROMEPROFILE_DIR")" ]; then
+    clear
     echo
     echo "${YELLOW}==== WICHTIGER HINWEIS VOR DEM ERSTEN START ====${NC}"
     echo
