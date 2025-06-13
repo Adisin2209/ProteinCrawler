@@ -1,7 +1,6 @@
 #!/bin/bash
 
 CHROMEPROFILE_DIR="./ChromeProfile"
-# Farben für schöne Ausgabe
 GREEN=$(tput setaf 2)
 YELLOW=$(tput setaf 3)
 RED=$(tput setaf 1)
@@ -17,47 +16,43 @@ else
     exit 1
 fi
 
-# Funktion für Arch Linux
 install_arch() {
     echo -e "${YELLOW}Pakete werden installiert für Arch Linux...${NC}"
-
-    # .NET Runtime 9.0 prüfen und nur installieren wenn nötig
     if ! pacman -Q dotnet-runtime-9.0 &>/dev/null; then
         sudo pacman -S --noconfirm dotnet-runtime-9.0 aspnet-runtime-9.0
     else
         echo "${GREEN}.NET Runtime 9.0 ist bereits installiert.${NC}"
     fi
-
-    # chromedriver prüfen
     if ! pacman -Q chromedriver &>/dev/null; then
         echo "${YELLOW}chromedriver wird installiert...${NC}"
         yay -S --noconfirm chromedriver
     else
         echo "${GREEN}chromedriver ist bereits installiert.${NC}"
     fi
-
     echo "${GREEN}Arch-Installation fertig.${NC}"
 }
 
-# Funktion für Ubuntu/Debian
 install_ubuntu() {
     echo -e "${YELLOW}Pakete werden installiert für Ubuntu/Debian...${NC}"
 
-    # .NET 9 installieren falls nicht vorhanden
-    if ! dotnet --list-sdks | grep -q "9."; then
-        echo "${YELLOW}.NET SDK 9 wird installiert...${NC}"
-        sudo apt-get update && \
-  sudo apt-get install -y dotnet-sdk-9.0
+    # Microsoft .NET Repo hinzufügen, wenn noch nicht vorhanden
+    wget https://packages.microsoft.com/config/ubuntu/$(lsb_release -rs)/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
+    sudo dpkg -i packages-microsoft-prod.deb
+    rm packages-microsoft-prod.deb
 
-  sudo apt-get update && \
-  sudo apt-get install -y aspnetcore-runtime-9.0
+    sudo apt-get update
+    sudo apt-get install -y apt-transport-https
+
+    # dotnet SDK 9 installieren
+    if ! dotnet --list-sdks 2>/dev/null | grep -q "9."; then
+        sudo apt-get update
+        sudo apt-get install -y dotnet-sdk-9.0
     else
         echo "${GREEN}.NET SDK 9 bereits installiert.${NC}"
     fi
 
-    # chromedriver prüfen
-    if ! which chromedriver &>/dev/null; then
-        echo "${YELLOW}chromedriver wird installiert...${NC}"
+    # chromedriver installieren
+    if ! command -v chromedriver &>/dev/null; then
         sudo apt-get install -y chromium-chromedriver
     else
         echo "${GREEN}chromedriver ist bereits installiert.${NC}"
@@ -66,16 +61,22 @@ install_ubuntu() {
     echo "${GREEN}Ubuntu/Debian-Installation fertig.${NC}"
 }
 
-# Installer aufrufen
 if [ "$OS" == "arch" ]; then
     install_arch
 else
     install_ubuntu
 fi
 
-# Build & Run
 echo
 echo "${YELLOW}Abhängigkeiten vollständig. Starte nun dotnet build + run...${NC}"
+
+# Prüfen, ob .csproj im aktuellen Verzeichnis
+CSPROJ_FILE=$(find . -maxdepth 1 -name "*.csproj" | head -n 1)
+if [ ! -f "$CSPROJ_FILE" ]; then
+    echo "${RED}Keine .csproj-Datei im aktuellen Verzeichnis gefunden! Bitte gehe in das Projektverzeichnis.${NC}"
+    exit 1
+fi
+
 dotnet build
 if [ ! -d "$CHROMEPROFILE_DIR" ] || [ -z "$(ls -A "$CHROMEPROFILE_DIR")" ]; then
     echo
@@ -92,4 +93,5 @@ if [ ! -d "$CHROMEPROFILE_DIR" ] || [ -z "$(ls -A "$CHROMEPROFILE_DIR")" ]; then
     read -p "Drücke [ENTER], um Chrome zu starten ..."
     echo
 fi
+
 dotnet run
