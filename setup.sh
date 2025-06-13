@@ -6,65 +6,39 @@ YELLOW=$(tput setaf 3)
 RED=$(tput setaf 1)
 NC=$(tput sgr0)
 
-# OS erkennen
-if grep -qi "arch" /etc/os-release; then
-    OS="arch"
-elif grep -qi "ubuntu" /etc/os-release || grep -qi "debian" /etc/os-release; then
-    OS="ubuntu"
-else
-    echo "${RED}Nicht unterstütztes System. Nur Arch und Ubuntu/Debian werden unterstützt.${NC}"
-    exit 1
+# Aktuelle .NET Version anpassen
+DOTNET_VERSION="9.0.203"
+DOWNLOAD_URL="https://download.visualstudio.microsoft.com/download/pr/f7993e2e-3374-4841-870a-593ba4135393/759f7b6a919b4578e296a58a0e070319/dotnet-sdk-9.0.203-linux-x64.tar.gz"
+INSTALL_DIR="$HOME/dotnet"
+
+echo -e "${YELLOW}Manuelle .NET SDK Installation nach Microsoft-Vorgabe...${NC}"
+
+# Entferne alte Installation zur Sicherheit
+rm -rf "$INSTALL_DIR"
+mkdir -p "$INSTALL_DIR"
+
+# Download & Entpacken
+wget -O /tmp/dotnet.tar.gz "$DOWNLOAD_URL"
+tar -xzf /tmp/dotnet.tar.gz -C "$INSTALL_DIR"
+rm /tmp/dotnet.tar.gz
+
+# Stelle sicher, dass Installationsverzeichnis vor dotnet im PATH steht
+export DOTNET_ROOT="$INSTALL_DIR"
+if ! echo "$PATH" | grep -q "$INSTALL_DIR"; then
+    export PATH="$INSTALL_DIR:$PATH"
+    # Optional ins Profil eintragen für spätere Sessions
+    grep -qF 'export DOTNET_ROOT' ~/.bashrc || echo "export DOTNET_ROOT=\"$INSTALL_DIR\"" >> ~/.bashrc
+    grep -qF 'export PATH="$HOME/dotnet:$PATH"' ~/.bashrc || echo "export PATH=\"$HOME/dotnet:\$PATH\"" >> ~/.bashrc
 fi
 
-install_arch() {
-    echo -e "${YELLOW}Pakete werden installiert für Arch Linux...${NC}"
-    if ! pacman -Q dotnet-runtime-9.0 &>/dev/null; then
-        sudo pacman -S --noconfirm dotnet-runtime-9.0 aspnet-runtime-9.0
-    else
-        echo "${GREEN}.NET Runtime 9.0 ist bereits installiert.${NC}"
-    fi
-    if ! pacman -Q chromedriver &>/dev/null; then
-        echo "${YELLOW}chromedriver wird installiert...${NC}"
-        yay -S --noconfirm chromedriver
-    else
-        echo "${GREEN}chromedriver ist bereits installiert.${NC}"
-    fi
-    echo "${GREEN}Arch-Installation fertig.${NC}"
-}
+echo -e "${GREEN}dotnet version: $($INSTALL_DIR/dotnet --version)${NC}"
 
-install_ubuntu() {
-    echo -e "${YELLOW}Pakete werden installiert für Ubuntu/Debian...${NC}"
-
-    # Microsoft .NET Repo hinzufügen, wenn noch nicht vorhanden
-    wget https://packages.microsoft.com/config/ubuntu/$(lsb_release -rs)/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
-    sudo dpkg -i packages-microsoft-prod.deb
-    rm packages-microsoft-prod.deb
-
+# chromedriver installieren, falls nötig
+if ! command -v chromedriver &>/dev/null; then
     sudo apt-get update
-    sudo apt-get install -y apt-transport-https
-
-    # dotnet SDK 9 installieren
-    if ! dotnet --list-sdks 2>/dev/null | grep -q "9."; then
-        sudo apt-get update
-        sudo apt-get install -y dotnet-sdk-9.0
-    else
-        echo "${GREEN}.NET SDK 9 bereits installiert.${NC}"
-    fi
-
-    # chromedriver installieren
-    if ! command -v chromedriver &>/dev/null; then
-        sudo apt-get install -y chromium-chromedriver
-    else
-        echo "${GREEN}chromedriver ist bereits installiert.${NC}"
-    fi
-
-    echo "${GREEN}Ubuntu/Debian-Installation fertig.${NC}"
-}
-
-if [ "$OS" == "arch" ]; then
-    install_arch
+    sudo apt-get install -y chromium-chromedriver
 else
-    install_ubuntu
+    echo "${GREEN}chromedriver ist bereits installiert.${NC}"
 fi
 
 echo
@@ -77,7 +51,7 @@ if [ ! -f "$CSPROJ_FILE" ]; then
     exit 1
 fi
 
-dotnet build
+"$INSTALL_DIR/dotnet" build
 if [ ! -d "$CHROMEPROFILE_DIR" ] || [ -z "$(ls -A "$CHROMEPROFILE_DIR")" ]; then
     echo
     echo "${YELLOW}==== WICHTIGER HINWEIS VOR DEM ERSTEN START ====${NC}"
@@ -94,4 +68,4 @@ if [ ! -d "$CHROMEPROFILE_DIR" ] || [ -z "$(ls -A "$CHROMEPROFILE_DIR")" ]; then
     echo
 fi
 
-dotnet run
+"$INSTALL_DIR/dotnet" run
