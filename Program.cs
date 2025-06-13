@@ -23,6 +23,7 @@ namespace SimpleWebScraper
             // --- 1. PORTABLES PROFIL-Setup ---
             string profilePath = Path.Combine(Directory.GetCurrentDirectory(), "ChromeProfile");
             chromeOptions.AddArgument("user-data-dir=" + profilePath);
+            chromeOptions.AddArgument("--log-level=3"); 
 
             // --- 2. DYNAMISCHE MODUS-WAHL ---
             bool profileExistiert = Directory.Exists(Path.Combine(profilePath, "Default"));
@@ -61,7 +62,11 @@ namespace SimpleWebScraper
             chromeOptions.AddArgument("headless");
             delay = 0;
 
-            using (var driver = new ChromeDriver(chromeOptions))
+            
+            var driverService = ChromeDriverService.CreateDefaultService();
+            driverService.SuppressInitialDiagnosticInformation = true;
+            driverService.HideCommandPromptWindow = true;
+            using (var driver = new ChromeDriver(driverService,chromeOptions))
             {
                 var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(15));
                 driver.Manage().Window.Maximize();
